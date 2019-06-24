@@ -39,8 +39,8 @@ module.exports = (path, data, parameters) => {
           res.push(`##### Description:\n\n${pathInfo.description}\n`);
         }
 
-        // Build parameters
-        if ('parameters' in pathInfo || pathParameters) {
+        // Build parameters if there are any specified
+        if (('parameters' in pathInfo || pathParameters) && pathInfo.parameters.length !== 0){
           res.push(`${transformParameters(pathInfo.parameters, pathParameters, parameters)}\n`);
         }
 

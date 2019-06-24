@@ -41,6 +41,7 @@ if (args.input) {
 
   try {
     const inputDoc = yaml.safeLoad(fs.readFileSync(args.input, 'utf8'));
+
     const outputFile = args.output || args.input.replace(/(yaml|yml|json)$/i, 'md');
 
     // Collect parameters
@@ -50,7 +51,14 @@ if (args.input) {
     if (!args.skipInfo && ('info' in inputDoc)) {
       document.push(transformInfo(inputDoc.info));
     }
-
+    if ('basePath' in inputDoc) {
+      let res = [];
+      res.push('### Base Path')
+      res.push(inputDoc.basePath)
+      let content = res.join('\n')
+      document.push(content)
+    }
+  
     if ('externalDocs' in inputDoc) {
       document.push(transformExternalDocs(inputDoc.externalDocs));
     }
